@@ -1,0 +1,22 @@
+#!/bin/bash
+
+
+function usage
+{
+	echo usage: 
+	echo $0 clone"               "\# clone all subprojects
+	echo $0 \<git args\>"          "\# git \<git args\> in all subprojects
+}
+
+subs=("pb_server" "pb_chrome" "pb_templates")
+if [ -z "$1" ]; then
+	usage
+elif [ "$1" = "clone" ]; then
+	for i in "${subs[@]}"; do
+		git clone git@github.com:atotic/${i}.git
+	done
+else
+	for i in "${subs[@]}"; do
+		pushd ./${i}; git "$@"; popd > /dev/null 2>&1
+	done
+fi
