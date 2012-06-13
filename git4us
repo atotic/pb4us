@@ -15,6 +15,7 @@ elif [ "$1" = "clone" ]; then
 	for i in "${subs[@]}"; do
 		git clone git@github.com:atotic/${i}.git
 	done
+	mkdir pb_data
 else
 	for i in "${subs[@]}"; do
 		pushd ./${i}; git "$@"; popd > /dev/null 2>&1

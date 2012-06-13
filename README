@@ -1,0 +1,16 @@
+Deployment steps:
+
+Once:
+cd pb_chrome
+rake chrome:reset
+cd ../pb_server
+rake book_template:fill
+rake db:clean
+rake db:migrate
+rvmsudo RACK_ENV=production rake deploy:initd
+
+Per deploy:
+cd pb_server
+rvmsudo RACK_ENV=production script/all stop # stop all servers
+rvmsudo RACK_ENV=production rake deploy:initd # migth be optional
+rvmsudo RACK_ENV=production rake db:migrate
